@@ -31,20 +31,21 @@ services:
   slurm:
     hostname: slurm
     container_name: slurm
-    cpus: 3.0
-    mem_limit: 5g
+    cpus: 8.0
+    mem_limit: 16g
     build:
       context: ../slurm-common
       dockerfile: Dockerfile
       args:
         - FRACTAL_SERVER_VERSION=2.15.1
-        - SLURM_CPUS=3
-        - SLURM_MEMORY=3000
+        - SLURM_CPUS=8
+        - SLURM_MEMORY=16000
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - data:/data
+      - /local1/albertm/ome-zarr-tests:/bsse-data
     environment:
       - SLURM_CPUS_ON_NODE=1
     ports:
