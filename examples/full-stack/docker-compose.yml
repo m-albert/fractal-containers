@@ -102,7 +102,7 @@ services:
 
   fractal-data:
     container_name: fractal-data
-    image: ghcr.io/fractal-analytics-platform/fractal-data:stable
+    image: ghcr.io/fractal-analytics-platform/fractal-data:dev
     environment:
       - FRACTAL_SERVER_URL=http://slurm:8000
       - AUTHORIZATION_SCHEME=fractal-server
