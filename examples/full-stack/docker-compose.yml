@@ -44,8 +44,9 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - data:/data
-      - /local1/albertm/ome-zarr-tests:/bsse-data
+      - /links/shared/scuanalysis/fractal/data/zarrs:/data/zarrs
+      - /links/shared/scuanalysis/fractal/data/images:/data/images
+      - /links/shared/scuanalysis:/scuanalysis:ro
     environment:
       - SLURM_CPUS_ON_NODE=1
     ports:
@@ -77,6 +78,7 @@ services:
 
   server-config:
     container_name: server-config
+    user: "650186:456709"
     build:
       context: ./server-config
       args:
@@ -85,12 +87,14 @@ services:
       slurm:
         condition: service_healthy
     volumes:
-      - data:/data
+      - /links/shared/scuanalysis/fractal/data:/data
+      # data:/data
     networks:
       - fractal
 
   fractal-filebrowser:
     container_name: fractal-filebrowser
+    user: "650186:456709"
     build:
       context: ./filebrowser
     ports:
@@ -98,10 +102,11 @@ services:
     networks:
       - fractal
     volumes:
-      - data:/data
+      - /links/shared/scuanalysis/fractal/data:/data
 
   fractal-data:
     container_name: fractal-data
+    user: "650186:456709"
     image: ghcr.io/fractal-analytics-platform/fractal-data:dev
     environment:
       - FRACTAL_SERVER_URL=http://slurm:8000
@@ -111,8 +116,7 @@ services:
     networks:
       - fractal
     volumes:
-      - data:/data:ro
-
+      - /links/shared/scuanalysis/fractal/data:/data:ro
 
   fractal-feature-explorer:
     container_name: fractal-feature-explorer

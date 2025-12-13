@@ -19,4 +19,8 @@ RUN mkdir -p /data/app/Artifacts
 RUN sed -i "s/CPUs=[0-9]*/CPUs=${SLURM_CPUS}/g" /etc/slurm/slurm.conf
 RUN sed -i "s/RealMemory=[0-9]*/RealMemory=${SLURM_MEMORY}/g" /etc/slurm/slurm.conf
 
+# Add user with matching host UID/GID for proper file ownership
+RUN groupadd --gid 456709 albertm_group || true
+RUN useradd --uid 650186 --gid 456709 -m albertm -s /usr/bin/bash -d /home/albertm && echo "albertm:albertm" | chpasswd
+
 ENTRYPOINT ["bash", "run_server.sh"]
