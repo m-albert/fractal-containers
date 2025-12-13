@@ -46,6 +46,7 @@ services:
     volumes:
       - /links/shared/scuanalysis/fractal/data/zarrs:/data/zarrs
       - /links/shared/scuanalysis/fractal/data/images:/data/images
+      - /local0/albertm/fractal/app:/data/app
       - /links/shared/scuanalysis:/scuanalysis:ro
     environment:
       - SLURM_CPUS_ON_NODE=1
