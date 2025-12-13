@@ -38,8 +38,8 @@ services:
       dockerfile: Dockerfile
       args:
         - FRACTAL_SERVER_VERSION=2.15.1
-        - SLURM_CPUS=8
-        - SLURM_MEMORY=16000
+        - SLURM_CPUS=60
+        - SLURM_MEMORY=100000
     depends_on:
       db:
         condition: service_healthy
@@ -89,7 +89,6 @@ services:
         condition: service_healthy
     volumes:
       - /links/shared/scuanalysis/fractal/data:/data
-      # data:/data
     networks:
       - fractal
 
