@@ -9,7 +9,7 @@
       "target_cpus_per_job": 1,
       "max_cpus_per_job": 20,
       "target_mem_per_job": 200,
-      "max_mem_per_job": 32000,
+      "max_mem_per_job": 64000,
       "target_num_jobs": 3,
       "max_num_jobs": 3
   }
