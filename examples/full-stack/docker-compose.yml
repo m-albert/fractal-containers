@@ -24,15 +24,16 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - postgres_db:/var/lib/postgresql/data
+      # - postgres_db:/var/lib/postgresql/data
+      - /local0/albertm/fractal/postgres_db:/var/lib/postgresql/data
     networks:
       - fractal
 
   slurm:
     hostname: slurm
     container_name: slurm
-    cpus: 8.0
-    mem_limit: 16g
+    cpus: 70.0
+    mem_limit: 230g
     build:
       context: ../slurm-common
       dockerfile: Dockerfile
