@@ -26,3 +26,6 @@ rm files-archive.zip
 # Change permissions
 chmod 777 /data/images/ --recursive
 chmod 777 /data/zarrs/ --recursive
+
+chmod 777 /scuanalysis --recursive
+

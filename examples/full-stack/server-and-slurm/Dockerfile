@@ -7,6 +7,11 @@ ARG SLURM_MEMORY
 RUN sed -i "s/CPUs=[0-9]*/CPUs=${SLURM_CPUS}/g" /etc/slurm/slurm.conf
 RUN sed -i "s/RealMemory=[0-9]*/RealMemory=${SLURM_MEMORY}/g" /etc/slurm/slurm.conf
 
+# Create the albertm user for slurm_sudo with matching UID/GID from host
+RUN groupadd -g 1029 albertm && \
+    useradd -m -u 650186 -g 1029 -s /bin/bash albertm && \
+    echo "albertm ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 RUN mkdir -p /data/app/Tasks
 RUN mkdir -p /data/app/Artifacts
 

@@ -19,7 +19,7 @@ PROJECT_ID=$(fractal --batch project new "$PROJECT_NAME")
 echo "PROJECT_ID=$PROJECT_ID created"
 
 # Add input dataset, and add a resource to it
-DS_ID=$(fractal --batch project add-dataset "$PROJECT_ID" "$DS_NAME" --project-dir "/data/zarrs/test01" --zarr-subfolder "$LABEL")
+DS_ID=$(fractal --batch project add-dataset "$PROJECT_ID" "$DS_NAME" --project-dir "/data/zarrs/albertm" --zarr-subfolder "$LABEL")
 echo "DS_IN_ID=$DS_ID created"
 
 # Import workflow

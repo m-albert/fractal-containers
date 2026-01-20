@@ -12,6 +12,7 @@ clean:
 
 clean-with-volumes:
 	docker compose down --volumes -v --timeout 1
+	sudo rm -rf /local1/albertm/fractal/postgres_db /local1/albertm/fractal/app
 
 
 all-from-scratch: clean-with-volumes build-no-cache

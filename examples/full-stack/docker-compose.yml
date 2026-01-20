@@ -22,26 +22,29 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - postgres_db:/var/lib/postgresql/data
+      - /local1/albertm/fractal/postgres_db:/var/lib/postgresql/data
     network_mode: "host"
 
   slurm:
     hostname: slurm
     container_name: slurm
-    cpus: 3.0
-    mem_limit: 5g
+    cpus: 24.0
+    mem_limit: 100g
     build:
       context: ./server-and-slurm
       dockerfile: Dockerfile
       args:
         - FRACTAL_SERVER_VERSION=2.18.2
-        - SLURM_CPUS=3
-        - SLURM_MEMORY=3000
+        - SLURM_CPUS=24
+        - SLURM_MEMORY=100000
     depends_on:
       db:
         condition: service_healthy
     volumes:
-      - data:/data
+      - /links/shared/scuanalysis/fractal/data/zarrs:/data/zarrs
+      - /links/shared/scuanalysis/fractal/data/images:/data/images
+      - /links/shared/scuanalysis:/scuanalysis:ro
+      - /local1/albertm/fractal/app:/data/app
     environment:
       - SLURM_CPUS_ON_NODE=1
     healthcheck:
@@ -73,7 +76,7 @@ services:
       slurm:
         condition: service_healthy
     volumes:
-      - data:/data
+      - /links/shared/scuanalysis/fractal/data:/data
     network_mode: "host"
 
   fractal-filebrowser:
@@ -83,17 +86,18 @@ services:
     ports:
       - 8080:80
     volumes:
-      - data:/data
+      - /links/shared/scuanalysis/fractal/data:/data
 
   fractal-data:
     container_name: fractal-data
     image: ghcr.io/fractal-analytics-platform/fractal-data:stable
+    user: "650186:1029"
     environment:
       - FRACTAL_SERVER_URL=http://localhost:8000
       - AUTHORIZATION_SCHEME=fractal-server
     network_mode: "host"
     volumes:
-      - data:/data:ro
+      - /links/shared/scuanalysis/fractal/data:/data:ro
 
   fractal-feature-explorer:
     container_name: fractal-feature-explorer
