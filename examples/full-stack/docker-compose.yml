@@ -28,8 +28,8 @@ services:
   slurm:
     hostname: slurm
     container_name: slurm
-    cpus: 24.0
-    mem_limit: 100g
+    cpus: 70.0
+    mem_limit: 200g
     build:
       context: ./server-and-slurm
       dockerfile: Dockerfile
