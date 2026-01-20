@@ -22,7 +22,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - /local1/albertm/fractal/postgres_db:/var/lib/postgresql/data
+      - /local0/albertm/fractal/postgres_db:/var/lib/postgresql/data
     network_mode: "host"
 
   slurm:
@@ -44,9 +44,16 @@ services:
       - /links/shared/scuanalysis/fractal/data/zarrs:/data/zarrs
       - /links/shared/scuanalysis/fractal/data/images:/data/images
       - /links/shared/scuanalysis:/scuanalysis:ro
-      - /local1/albertm/fractal/app:/data/app
+      - /0/albertm/fractal/app:/data/app
     environment:
       - SLURM_CPUS_ON_NODE=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     healthcheck:
       test: wget http://localhost:8000/api/alive/ > /dev/null 2>&1
       interval: 5s
