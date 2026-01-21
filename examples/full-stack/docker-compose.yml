@@ -35,8 +35,8 @@ services:
       dockerfile: Dockerfile
       args:
         - FRACTAL_SERVER_VERSION=2.18.2
-        - SLURM_CPUS=24
-        - SLURM_MEMORY=100000
+        - SLURM_CPUS=70
+        - SLURM_MEMORY=200000
     depends_on:
       db:
         condition: service_healthy
