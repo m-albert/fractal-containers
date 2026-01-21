@@ -44,7 +44,7 @@ services:
       - /links/shared/scuanalysis/fractal/data/zarrs:/data/zarrs
       - /links/shared/scuanalysis/fractal/data/images:/data/images
       - /links/shared/scuanalysis:/scuanalysis:ro
-      - /0/albertm/fractal/app:/data/app
+      - /local0/albertm/fractal/app:/data/app
     environment:
       - SLURM_CPUS_ON_NODE=1
     deploy:
